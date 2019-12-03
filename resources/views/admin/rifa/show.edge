@@ -1,0 +1,73 @@
+@layout('layout.app')
+
+@section('content')
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-7 col-md-9 col-lg-8 mx-auto">
+        <div class="card card-signin my-5 text-center">
+          <div class="card-body">
+            @if(isAdmin)
+              @if(premios[0])
+                
+              @else
+                <a class="btn btn-success" href="/rifa/{{rifa.id}}/premio">Cadastrar premios</a>
+              @endif
+                <form action="/rifa/sorteio" method="post">
+                  <input type="hidden" name="rifa_id" value="{{rifa.id}}">
+                  <button type="submit" class="btn btn-outline-success">Sortear</button>
+                </form>
+            @endif
+            <h3 class="card-title"> {{ rifa.titulo }} </h3>
+            <h5> {{ rifa.descricao }} </h5>
+            <h5> Data do sorteio: {{ rifa.data_provavel_sorteio }} </h5>
+            <h5> Valor: {{ rifa.valor_bilhete }} </h5>
+            <h5> Premios</h5>
+              @each(premio in premios)
+                <h7 class="ui-state-default">{{premio.colocacao}}° - {{premio.descricao}} ()</h7>
+              @endeach
+            
+            <h3 class="card-title">Seus bilhetes ({{investimento}})</h3>
+            <ul class="list-unstyled" id="sortable">
+            @each(bilhete in bilhetesComprados)
+              <li class="ui-state-default"><a>{{bilhete.numero}}</a></li>
+            @endeach
+            </ul>
+            <h3 class="card-title">Bilhetes disponíveis</h3>
+            <ul class="list-unstyled" id="sortable">
+              @if(bilhetes[0])
+                @each(bilhete in bilhetes)
+                  <li class="ui-state-default"><a href="/bilhete/{{ bilhete.id }}/buy">{{bilhete.numero}}</a></li>
+                @endeach
+            </ul>
+            <h3 class="card-title">Bilhetes indisponíveis</h3>
+            <ul class="list-unstyled" id="sortable">
+              @each(bilhete in bilhetesIndisponiveis)
+                  <li class="ui-state-default"><a>{{bilhete.numero}}</a></li>
+                @endeach
+            </ul>       
+              @else
+                @if(isAdmin)
+                  <form action="/rifa/gerarBilhetes" method="post">
+                    {{ csrfField() }}
+                    <input type="hidden" name="rifa_id" value="{{rifa.id}}">
+                    <div class="form-group">
+                      <label for="inputCity">Tipo</label>
+                      <select class="custom-select" name="tipo" required>
+                        @each(tipo in tipos)
+                          <option value="{{ tipo.id }}">{{ tipo.id }}</option>
+                        @endeach
+                      </select>
+                    </div>
+                    <button class="btn btn-success" type="submit">Gerar bilhetes</button>
+                    <a class="btn btn-success" href="/tipo/create">Cadastrar tipos</a>
+                  </form>
+                @endif  
+              @endif  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection
+    
+ 

@@ -1,0 +1,22 @@
+@layout('layout.app')
+
+@section('content')
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-7 col-md-9 col-lg-8 mx-auto">
+        <div class="card card-signin my-5 text-center">
+          <div class="card-body">
+            <h3 class="card-title"> Rifas </h3>
+            <ul class="list-unstyled" id="sortable">
+            @each(rifa in rifas)
+              <li class="ui-state-default"><a href="/rifa/{{ rifa.id }}" >{{rifa.titulo}}</a></li>
+            @endeach
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection
+    
+ 

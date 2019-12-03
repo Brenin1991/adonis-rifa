@@ -1,0 +1,22 @@
+@layout('layout.app')
+
+@section('content')
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5 text-center">
+          <div class="card-body">
+            <h3 class="card-title">Recuperar senha</h3>
+              @include('includes.notification')
+              <form action="/password/email" method="post">
+                {{ csrfField() }}
+                <div class="form-group"><input class="form-control" id="exampleInputEmail1" type="email" name="email" placeholder="Digite seu e-mail" /></div>
+                
+                <button class="btn btn-outline-warning ssmy-2 my-sm-0" type="submit">Enviar link</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection

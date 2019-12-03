@@ -1,0 +1,29 @@
+@layout('layout.app')
+
+@section('content')
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5 text-center">
+          <div class="card-body">
+            <h3 class="card-title">Registrar</h3>
+              @include('includes.notification')
+              <form action="{{ route('register') }}" method="post">
+                {{ csrfField() }}
+                <div class="form-group"><input class="form-control input {{ hasErrorFor('username') ? 'is-danger' : '' }}" id="exampleInputEmail1" type="text" name="username" placeholder="Nome" /></div>
+                {{ elIf('<span class="help is-danger">$self</span>', getErrorFor('username'), hasErrorFor('username')) }}
+
+                <div class="form-group"><input class="form-control input {{ hasErrorFor('email') ? 'is-danger' : '' }}" id="exampleInputEmail1" type="email" name="email" placeholder="E-mail" /></div>
+                {{ elIf('<span class="help is-danger">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
+
+                <div class="form-group"><input class="form-control input {{ hasErrorFor('password') ? 'is-danger' : '' }}" id="exampleInputPassword1" type="password" name="password" placeholder="Senha" /></div>
+                {{ elIf('<span class="help is-danger">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Registrar</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection
